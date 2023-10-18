@@ -55,12 +55,12 @@ async def leave_room(request: Request):
         del request.session["room_name"]
     return {"message": "Successfully left the room"}
 
-# @app.websocket("/ws")
-# async def websocket_endpoint(websocket: WebSocket):
-#     await websocket.accept()
-#     while True:
-#         data = await websocket.receive_text()
-#         await websocket.send_text(f"Message text was: {data}")
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
 
 # 接続しているすべてのWebSocketを保持するリスト
 
