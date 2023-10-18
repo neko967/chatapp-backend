@@ -10,6 +10,10 @@ from starlette.requests import Request
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="some-secret-key")
 
+@app.get("/api/python")
+def hello_world():
+    return {"message": "Hello World"}
+
 class Room(BaseModel):
     name: str
     password: str
