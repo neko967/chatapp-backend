@@ -10,7 +10,7 @@ from starlette.requests import Request
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="some-secret-key")
 
-@app.get("/api/python")
+@app.get("/")
 def hello_world():
     return {"message": "Hello World"}
 
@@ -59,13 +59,13 @@ async def leave_room(request: Request):
         del request.session["room_name"]
     return {"message": "Successfully left the room"}
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
-
+# @app.websocket("/ws")
+# async def websocket_endpoint(websocket: WebSocket):
+#     await websocket.accept()
+#     while True:
+#         data = await websocket.receive_text()
+#         await websocket.send_text(f"Message text was: {data}")
+# 
 # 接続しているすべてのWebSocketを保持するリスト
 
 class Connection:
