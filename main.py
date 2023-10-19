@@ -14,7 +14,7 @@ app.add_middleware(SessionMiddleware, secret_key="some-secret-key")
 # CORSミドルウェアの設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://chatapp-frontend-six.vercel.app"],  # 許可するオリジンを指定
+    allow_origins=["http://localhost:3000"],  # 許可するオリジンを指定
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
@@ -26,7 +26,7 @@ class Room(BaseModel):
 
 rooms = []
 
-@app.get("/api/python")
+@app.get("/")
 def hello_world():
     return {"message": "Hello World"}
 
