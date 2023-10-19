@@ -6,13 +6,18 @@ from starlette.middleware.sessions import SessionMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="some-secret-key")
 
-@app.get("/")
-def hello_world():
-    return {"message": "Hello World"}
+# CORSミドルウェアの設定
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://chatapp-frontend-six.vercel.app"],  # 許可するオリジンを指定
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
 
 class Room(BaseModel):
     name: str
@@ -20,6 +25,10 @@ class Room(BaseModel):
     id: Optional[int] = None
 
 rooms = []
+
+@app.get("/api/python")
+def hello_world():
+    return {"message": "Hello World"}
 
 @app.post("/api/create-room")
 async def create_room(room: Room, request: Request):
